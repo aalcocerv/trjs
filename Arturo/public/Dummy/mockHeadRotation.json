@@ -1,10 +1,13 @@
 {
   "headRotation": { "x": 0, "y": 0, "z": 0 },
-  "shoulderRRotation": { "x": 0, "y": 0, "z": 0 },
-  "shoulderLRotation": { "x": 0, "y": 0, "z": 0 },
+  "shoulderRRotation": { "x": 0, "y": 0, "z": 1.5708 },
+  "shoulderLRotation": { "x": 0, "y": 0, "z": -1.5708 },
   "forearmRRotation": { "x": 0, "y": 0, "z": 0 },
   "forearmLRotation": { "x": 0, "y": 0, "z": 0 },
-  "hipRotation": { "x": 0, "y": 0, "z": 0 },
+  "thighRRotation": { "x": 3.1416, "y": 3.1416, "z": 0 },
+  "thighLRotation": { "x": 3.1416, "y": 3.1416, "z": 0 },
   "kneeRRotation": { "x": 0, "y": 0, "z": 0 },
-  "kneeLRotation": { "x": 0, "y": 0, "z": 0 }
+  "kneeLRotation": { "x": 0, "y": 0, "z": 0 },
+  "footRRotation": { "x": 0, "y": 0, "z": 0 },
+  "footLRotation": { "x": 0, "y": 0, "z": 0 }
 }

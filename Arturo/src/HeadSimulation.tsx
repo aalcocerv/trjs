@@ -7,15 +7,18 @@ import { Group, Quaternion, Euler } from 'three';
 const HeadModel: React.FC = () => {
   const { scene, camera } = useThree();
 
-  // Referencias de las partes a animar
+  // Referencias de las partes que SÍ se van a mover
   const headRef = useRef<Group | null>(null);
   const shoulderRRef = useRef<Group | null>(null);
   const shoulderLRef = useRef<Group | null>(null);
   const forearmRRef = useRef<Group | null>(null);
   const forearmLRef = useRef<Group | null>(null);
-  const hipRef = useRef<Group | null>(null);
+  const thighRRef = useRef<Group | null>(null);    // muslo derecho
+  const thighLRef = useRef<Group | null>(null);    // muslo izquierdo
   const kneeRRef = useRef<Group | null>(null);
   const kneeLRef = useRef<Group | null>(null);
+  const footRRef = useRef<Group | null>(null);     // pie derecho
+  const footLRef = useRef<Group | null>(null);     // pie izquierdo
 
   useEffect(() => {
     camera.position.set(0, 0, 10);
@@ -31,9 +34,12 @@ const HeadModel: React.FC = () => {
       if (node.name === 'mixamorigLeftShoulder_08') shoulderLRef.current = node;
       if (node.name === 'mixamorigRightForeArm_018') forearmRRef.current = node;
       if (node.name === 'mixamorigLeftForeArm_010') forearmLRef.current = node;
-      if (node.name === 'mixamorigHips_01') hipRef.current = node;
+      if (node.name === 'mixamorigRightUpLeg_028') thighRRef.current = node;
+      if (node.name === 'mixamorigLeftUpLeg_024') thighLRef.current = node;
       if (node.name === 'mixamorigRightLeg_029') kneeRRef.current = node;
       if (node.name === 'mixamorigLeftLeg_025') kneeLRef.current = node;
+      if (node.name === 'mixamorigRightFoot_030') footRRef.current = node;
+      if (node.name === 'mixamorigLeftFoot_026') footLRef.current = node;
     });
   }, [gltfScene]);
 
@@ -47,9 +53,12 @@ const HeadModel: React.FC = () => {
           shoulderLRotation,
           forearmRRotation,
           forearmLRotation,
-          hipRotation,
+          thighRRotation,
+          thighLRotation,
           kneeRRotation,
-          kneeLRotation
+          kneeLRotation,
+          footRRotation,
+          footLRotation
         } = data;
 
         const applyRotation = (ref: React.MutableRefObject<Group | null>, rot: any) => {
@@ -65,9 +74,12 @@ const HeadModel: React.FC = () => {
         applyRotation(shoulderLRef, shoulderLRotation);
         applyRotation(forearmRRef, forearmRRotation);
         applyRotation(forearmLRef, forearmLRotation);
-        applyRotation(hipRef, hipRotation);
+        applyRotation(thighRRef, thighRRotation);
+        applyRotation(thighLRef, thighLRotation);
         applyRotation(kneeRRef, kneeRRotation);
         applyRotation(kneeLRef, kneeLRotation);
+        applyRotation(footRRef, footRRotation);
+        applyRotation(footLRef, footLRotation);
       })
       .catch((err) => console.error('Error al leer JSON:', err));
   });
