@@ -6,9 +6,16 @@ import { Group, Quaternion, Euler } from 'three';
 
 const HeadModel: React.FC = () => {
   const { scene, camera } = useThree();
+
+  // Referencias de las partes a animar
   const headRef = useRef<Group | null>(null);
-  const shoulderRef = useRef<Group | null>(null);
-  const forearmRef = useRef<Group | null>(null); // 👈 Nuevo: referencia al codo
+  const shoulderRRef = useRef<Group | null>(null);
+  const shoulderLRef = useRef<Group | null>(null);
+  const forearmRRef = useRef<Group | null>(null);
+  const forearmLRef = useRef<Group | null>(null);
+  const hipRef = useRef<Group | null>(null);
+  const kneeRRef = useRef<Group | null>(null);
+  const kneeLRef = useRef<Group | null>(null);
 
   useEffect(() => {
     camera.position.set(0, 0, 10);
@@ -16,20 +23,17 @@ const HeadModel: React.FC = () => {
 
   const { scene: gltfScene } = useGLTF('/Dummy/scene.gltf') as any;
 
+  // Encontramos y guardamos las referencias de las partes
   useEffect(() => {
     gltfScene.traverse((node: any) => {
-      if (node.name === 'mixamorigHead_06') {
-        headRef.current = node;
-        console.log('✔️ Nodo de cabeza encontrado:', node.name);
-      }
-      if (node.name === 'mixamorigRightShoulder_016') {
-        shoulderRef.current = node;
-        console.log('✔️ Nodo de hombro derecho encontrado:', node.name);
-      }
-      if (node.name === 'mixamorigRightForeArm_018') { // 👈 Nodo del codo derecho
-        forearmRef.current = node;
-        console.log('✔️ Nodo de codo derecho encontrado:', node.name);
-      }
+      if (node.name === 'mixamorigHead_06') headRef.current = node;
+      if (node.name === 'mixamorigRightShoulder_016') shoulderRRef.current = node;
+      if (node.name === 'mixamorigLeftShoulder_08') shoulderLRef.current = node;
+      if (node.name === 'mixamorigRightForeArm_018') forearmRRef.current = node;
+      if (node.name === 'mixamorigLeftForeArm_010') forearmLRef.current = node;
+      if (node.name === 'mixamorigHips_01') hipRef.current = node;
+      if (node.name === 'mixamorigRightLeg_029') kneeRRef.current = node;
+      if (node.name === 'mixamorigLeftLeg_025') kneeLRef.current = node;
     });
   }, [gltfScene]);
 
@@ -37,40 +41,33 @@ const HeadModel: React.FC = () => {
     fetch('/Dummy/mockHeadRotation.json')
       .then(res => res.json())
       .then((data) => {
-        const { headRotation, shoulderRotation, forearmRotation } = data;
+        const {
+          headRotation,
+          shoulderRRotation,
+          shoulderLRotation,
+          forearmRRotation,
+          forearmLRotation,
+          hipRotation,
+          kneeRRotation,
+          kneeLRotation
+        } = data;
 
-        if (headRef.current) {
-          const euler = new Euler(
-            headRotation.x,
-            headRotation.y,
-            headRotation.z,
-            'XYZ'
-          );
-          const quat = new Quaternion().setFromEuler(euler);
-          headRef.current.quaternion.copy(quat);
-        }
+        const applyRotation = (ref: React.MutableRefObject<Group | null>, rot: any) => {
+          if (ref.current && rot) {
+            const euler = new Euler(rot.x, rot.y, rot.z, 'XYZ');
+            const quat = new Quaternion().setFromEuler(euler);
+            ref.current.quaternion.copy(quat);
+          }
+        };
 
-        if (shoulderRef.current) {
-          const euler = new Euler(
-            shoulderRotation.x,
-            shoulderRotation.y,
-            shoulderRotation.z,
-            'XYZ'
-          );
-          const quat = new Quaternion().setFromEuler(euler);
-          shoulderRef.current.quaternion.copy(quat);
-        }
-
-        if (forearmRef.current) {
-          const euler = new Euler(
-            forearmRotation.x,
-            forearmRotation.y,
-            forearmRotation.z,
-            'XYZ'
-          );
-          const quat = new Quaternion().setFromEuler(euler);
-          forearmRef.current.quaternion.copy(quat);
-        }
+        applyRotation(headRef, headRotation);
+        applyRotation(shoulderRRef, shoulderRRotation);
+        applyRotation(shoulderLRef, shoulderLRotation);
+        applyRotation(forearmRRef, forearmRRotation);
+        applyRotation(forearmLRef, forearmLRotation);
+        applyRotation(hipRef, hipRotation);
+        applyRotation(kneeRRef, kneeRRotation);
+        applyRotation(kneeLRef, kneeLRotation);
       })
       .catch((err) => console.error('Error al leer JSON:', err));
   });
