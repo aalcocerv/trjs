@@ -1,0 +1,11 @@
+Model Information:
+* title:	Dummy/Poppy Playtime Player
+* source:	https://sketchfab.com/3d-models/dummypoppy-playtime-player-1ddbb34657114a0f842b60e6c6146073
+* author:	YourBoy (https://sketchfab.com/YbTg)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Dummy/Poppy Playtime Player" (https://sketchfab.com/3d-models/dummypoppy-playtime-player-1ddbb34657114a0f842b60e6c6146073) by YourBoy (https://sketchfab.com/YbTg) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
