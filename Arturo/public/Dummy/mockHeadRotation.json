@@ -1,4 +1,5 @@
 {
-  "headRotation": { "x": 0, "y": 0.5, "z": 0 },
-  "shoulderRotation": { "x": 1.5708, "y": 0, "z": 1.5708 }
+  "headRotation": { "x": 0, "y": 0, "z": 0 },
+  "shoulderRotation": { "x": 0, "y": 0, "z": 0 },
+  "forearmRotation": { "x": 0, "y": 0, "z": 1 }
 }
