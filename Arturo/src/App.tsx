@@ -1,13 +1,15 @@
-// src/App.tsx
-import './App.css';
-import HeadSimulation from './HeadSimulation';
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Environment } from "@react-three/drei";
+import HeadModel from "./HeadModel";
 
-function App() {
+export default function App() {
   return (
-    <div className="App" style={{ height: '100vh', width: '100vw', overflow: 'hidden' }}>
-      <HeadSimulation />
-    </div>
+    <Canvas camera={{ position: [0, 1.5, 3], fov: 50 }}>
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 5, 5]} />
+      <HeadModel />
+      <OrbitControls />
+      <Environment preset="city" />
+    </Canvas>
   );
 }
-
-export default App;
